@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokit Privacy and Support</title>
+<meta name="description" content="Privacy policy and support for Pokit Music Player, a music player for your Plex server.">
+<style>
+  :root {
+    --bg: #fbf7f4; --card: #ffffff; --ink: #231c1a; --muted: #6f625d; --line: #ece2dc;
+    --coral: #f2705a; --coral-soft: #fde9e4; --glow: rgba(242,112,90,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141012; --card: #1d1719; --ink: #f4ece8; --muted: #b3a49e; --line: #2e2528;
+      --coral: #ff8a73; --coral-soft: #3a211d; --glow: rgba(255,138,115,.16);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141012; --card: #1d1719; --ink: #f4ece8; --muted: #b3a49e; --line: #2e2528;
+    --coral: #ff8a73; --coral-soft: #3a211d; --glow: rgba(255,138,115,.16);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 500 17px/1.6 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background-image: radial-gradient(60rem 30rem at 85% -10%, var(--glow), transparent 70%),
+                      radial-gradient(40rem 24rem at -10% 10%, var(--glow), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 80px; }
+  header.top { padding: 56px 0 28px; }
+  .brand { display: flex; align-items: center; gap: 12px; font: 900 15px "Inter", sans-serif; letter-spacing: .02em; color: var(--coral); text-transform: uppercase; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 18px var(--coral); }
+  h1, h2, h3 { font-family: "Inter", system-ui, sans-serif; font-weight: 900; line-height: 1.15; letter-spacing: -.01em; }
+  h1 { font-size: clamp(34px, 7vw, 50px); margin: 14px 0 10px; }
+  h2 { font-size: 28px; margin: 0 0 6px; }
+  h3 { font-size: 18px; font-weight: 600; margin: 28px 0 6px; }
+  p, li { color: var(--ink); }
+  .lede { color: var(--muted); font-size: 18px; margin: 0; }
+  nav.jump { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  nav.jump a, .btn {
+    display: inline-block; padding: 9px 18px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; background: var(--coral-soft); color: var(--coral); border: 1px solid transparent;
+  }
+  .btn.solid { background: var(--coral); color: #fff; }
+  section.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 24px;
+    padding: 28px 24px; margin-top: 22px; box-shadow: 0 10px 40px rgba(0,0,0,.04);
+  }
+  .meta { color: var(--muted); font-size: 15px; margin: 0 0 18px; }
+  .summary { background: var(--coral-soft); border-radius: 16px; padding: 16px 18px; margin: 18px 0 8px; }
+  .summary ul { margin: 6px 0 0; padding-left: 20px; }
+  a { color: var(--coral); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 10px 0; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-family: "Inter", sans-serif; font-weight: 600; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  .tablewrap { overflow-x: auto; }
+  .contact { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin: 16px 0 6px; }
+  .contact .box { border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+  .contact .box strong { display: block; font-family: "Inter", sans-serif; font-weight: 600; margin-bottom: 4px; }
+  .contact .box a { word-break: break-all; }
+  details { border-top: 1px solid var(--line); padding: 12px 0; }
+  details summary { cursor: pointer; font-weight: 700; }
+  footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 40px; }
+  @media (max-width: 560px) { .contact { grid-template-columns: 1fr; } section.card { padding: 22px 18px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="dot"></span>Pokit Music Player</div>
+    <h1>Privacy and Support</h1>
+    <p class="lede">Pokit plays the music on your own Plex server. It has no ads, no tracking and no analytics, and your library stays yours.</p>
+    <nav class="jump"><a href="#privacy">Privacy Policy</a><a href="#support">Support</a></nav>
+  </header>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="card" id="privacy">
+    <h2>Privacy Policy</h2>
+    <p class="meta">Effective November 14th, 2026</p>
+
+    <p>This policy explains what Pokit Music Player ("Pokit", "the app") does with your information. Pokit is made by Jay Davis, an independent developer ("I", "me").</p>
+
+    <div class="summary">
+      <strong>The short version</strong>
+      <ul>
+        <li>I don't collect, sell or share your personal data. I don't run any servers that receive it.</li>
+        <li>No ads, no tracking, no analytics and no third party crash reporting.</li>
+        <li>Your Plex sign-in is stored in the iPhone Keychain on your device only.</li>
+        <li>To show artist pictures and info, Pokit looks up artist and album names on public music databases. Those lookups don't include your name, account or any Pokit ID.</li>
+        <li>I only see something if you choose to email me.</li>
+      </ul>
+    </div>
+
+    <h3>1. Information that stays on your device</h3>
+    <p>Pokit keeps these on your iPhone or iPad so the app works: your Plex sign-in (in the Keychain, set to this device only and left out of device backups), your server address, your settings, pins, listening history, Stats, Achievements, downloaded songs and saved artwork. None of this is sent to me. Deleting the app, or using <em>Reset App</em> in Settings, removes it.</p>
+
+    <h3>2. Plex</h3>
+    <p>When you sign in, Pokit uses Plex's own sign-in page on plex.tv and then connects to your Plex Media Server to browse and play your music. Like other Plex apps, Pokit tells your server and Plex things such as the app name, device name and a random app identifier, and it reports playback progress and ratings to your server so they show up in Plex. This information goes to your own server and to Plex, not to me. Plex's handling of your account is covered by the <a href="https://www.plex.tv/about/privacy-legal/">Plex Privacy Policy</a>. Pokit is not made by or affiliated with Plex, Inc.</p>
+
+    <h3>3. Music information services</h3>
+    <p>To show artist photos, logos, bios, album details and upcoming releases, Pokit asks these public services about the music in your library. A request contains things like an artist name, album or song title, or a MusicBrainz ID. It does not contain your name, email, Plex account or any identifier for you. As with any website, these services can see your device's IP address when Pokit contacts them.</p>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Service</th><th>What Pokit sends</th><th>What it's used for</th></tr>
+      <tr><td><a href="https://musicbrainz.org/">MusicBrainz</a></td><td>Artist, album and song names or MusicBrainz IDs</td><td>Artist details, links, release types and dates</td></tr>
+      <tr><td><a href="https://fanart.tv/">fanart.tv</a></td><td>An artist's MusicBrainz ID, plus a personal fanart.tv key if you add one in Settings</td><td>Artist backgrounds and logos</td></tr>
+      <tr><td><a href="https://coverartarchive.org/">Cover Art Archive</a></td><td>A MusicBrainz release ID</td><td>Album covers for upcoming releases</td></tr>
+      <tr><td><a href="https://www.wikipedia.org/">Wikipedia</a></td><td>Artist and album names</td><td>Album liner notes and release info</td></tr>
+      <tr><td>Apple (iTunes Search)</td><td>Artist names and album IDs</td><td>Upcoming releases and song previews (Pro)</td></tr>
+      <tr><td>Google Fonts</td><td>The name of a font</td><td>Downloading fonts for some share-card styles</td></tr>
+    </table>
+    </div>
+    <p>Links to other sites (for example Genius, Wikipedia, Reddit or an artist's social pages) only open when you tap them, and those sites have their own privacy policies.</p>
+    <p><strong>Credits.</strong> Artist and release information is provided by <a href="https://musicbrainz.org/">MusicBrainz</a>, the open music encyclopedia. Artist images and logos are provided by <a href="https://fanart.tv/">fanart.tv</a> and belong to their respective contributors. Pokit is not endorsed by MusicBrainz or fanart.tv.</p>
+
+    <h3>4. Song recognition</h3>
+    <p>"Is this in my library?" uses Apple's ShazamKit. The microphone is only used after you tap to start, and only for a few seconds. ShazamKit turns the sound into a signature and Apple's Shazam service matches it. Pokit doesn't record or keep audio. Apple's privacy policy applies to ShazamKit.</p>
+
+    <h3>5. iCloud Backup (Pokit Pro)</h3>
+    <p>If you turn on Backup, Pokit saves one file to your own iCloud Drive with your settings, pins, listening history and Stats. Your Plex sign-in, downloads and cached songs are not included. The file is stored by Apple in your iCloud account. I can't see it. You can delete it in the Files app or in iOS Settings &gt; your name &gt; iCloud.</p>
+
+    <h3>6. Purchases and tips</h3>
+    <p>Pokit Pro and tips are bought through Apple's App Store. Apple handles payment and I never receive your card details. Pokit checks on your device whether you own Pro. I only receive the regular sales reports Apple gives all developers, which don't identify you personally.</p>
+
+    <h3>7. Guest Mode (Pokit Pro)</h3>
+    <p>Guest Mode lets friends on the same Wi-Fi add songs to your queue from a web page that runs on your phone. Guests type a name (up to 24 characters) and can pick songs and send short messages. This stays on your local network between their browser and your phone. It is never sent to me, and guests never connect to your Plex server or see your Plex sign-in.</p>
+
+    <h3>8. Photos, calendar and notifications</h3>
+    <ul>
+      <li><strong>Photos:</strong> Pokit asks to <em>add</em> photos only when you save a share image. If you pick a picture as a cover (for example for a playlist), it's resized and uploaded to your own Plex server.</li>
+      <li><strong>Calendar:</strong> "Add to Calendar" for an upcoming release opens Apple's standard event screen. Nothing is added unless you save it.</li>
+      <li><strong>Notifications:</strong> Release reminders are scheduled on your device. Pokit doesn't use push notifications.</li>
+    </ul>
+
+    <h3>9. Diagnostics and support emails</h3>
+    <p>Pokit keeps a diagnostic log on your device to help fix problems. It can include what the app was doing, your device model, iOS version and crash reports that iOS hands to the app. The log never leaves your device unless you choose to send it with <em>Report a Problem</em> or export it. Before it's attached, Pokit removes your Plex sign-in, email addresses, web addresses and server addresses. The email opens in your own Mail app so you can read it before sending, and you can turn the attachment off.</p>
+    <p>If you email me, I'll see your email address and whatever you include, and I'll use it only to answer you and fix the problem. Ask and I'll delete it. Separately, if you've turned on <em>Share With App Developers</em> in iOS Settings, Apple may give me anonymous crash reports, as it does for every app.</p>
+
+    <h3>10. Children</h3>
+    <p>Pokit isn't directed at children under 13 and doesn't knowingly collect information from anyone.</p>
+
+    <h3>11. Your choices</h3>
+    <p>You can sign out at any time, reset Pokit in Settings, delete your iCloud backup, deny or remove microphone and photo permissions in iOS Settings, or delete the app. Because I don't hold your data, there is nothing on my side to delete unless you've emailed me.</p>
+
+    <h3>12. Changes</h3>
+    <p>If this policy changes, I'll update this page and the date at the top.</p>
+
+    <h3>13. Contact</h3>
+    <p>Questions about privacy: <a href="mailto:pokitmusicplayer@proton.me">pokitmusicplayer@proton.me</a></p>
+  </section>
+
+  <!-- ============ SUPPORT ============ -->
+  <section class="card" id="support">
+    <h2>Support</h2>
+    <p class="meta">Need a hand? I read everything.</p>
+
+    <div class="contact">
+      <div class="box">
+        <strong>Email</strong>
+        <a href="mailto:pokitmusicplayer@proton.me">pokitmusicplayer@proton.me</a>
+        <p class="meta" style="margin:6px 0 0">Best for bugs, purchases and anything private.</p>
+      </div>
+      <div class="box">
+        <strong>Community</strong>
+        <a href="https://www.reddit.com/r/PokitMusicPlayer">r/PokitMusicPlayer</a>
+        <p class="meta" style="margin:6px 0 0">Tips, feature ideas and news.</p>
+      </div>
+    </div>
+    <p><a class="btn solid" href="mailto:pokitmusicplayer@proton.me?subject=Pokit%20support">Email Support</a></p>
+
+    <h3>Common questions</h3>
+    <details>
+      <summary>What do I need to use Pokit?</summary>
+      <p>A Plex account and a Plex Media Server with a music library. Pokit is a player for your own music. It doesn't come with a music catalog.</p>
+    </details>
+    <details>
+      <summary>Pokit can't reach my server.</summary>
+      <p>Make sure your Plex server is on and signed in. If you're away from home, check that Remote Access is on in your Plex server settings. If it still fails, send a report (see below).</p>
+    </details>
+    <details>
+      <summary>How do I report a problem?</summary>
+      <p>Tap <em>Report a Problem</em> in Pokit's Settings. It writes an email to me with a cleaned-up diagnostic log attached (your sign-in and addresses are removed). You can read it before you send it.</p>
+    </details>
+    <details>
+      <summary>I bought Pro but it's not showing.</summary>
+      <p>Open the Pokit Pro screen and tap <em>Restore</em>. Make sure you're signed in with the same Apple Account you bought it with.</p>
+    </details>
+    <details>
+      <summary>How do I get a refund?</summary>
+      <p>Refunds are handled by Apple. Go to <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a> and choose the purchase.</p>
+    </details>
+    <details>
+      <summary>How do I move my stats to a new phone?</summary>
+      <p>With Pokit Pro, use iCloud Backup in Settings on your old device, then <em>Restore From iCloud</em> on the new one.</p>
+    </details>
+  </section>
+
+  <footer>
+    Pokit Music Player &middot; Not affiliated with Plex, Inc. &middot; &copy; 2026 Jay Davis
+  </footer>
+</div>
+</body>
+</html>
