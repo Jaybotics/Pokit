@@ -3,84 +3,167 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pokit Privacy and Support</title>
-<meta name="description" content="Privacy policy and support for Pokit Music Player, a music player for your Plex server.">
+<title>Pokit Music Player: a Plex music player with personality</title>
+<meta name="description" content="Pokit is a music player for your own Plex server, with artist pages, listening stats, shareable recaps and backgrounds that move with your music. No ads, no tracking, no analytics.">
+<meta name="theme-color" content="#fbf7f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141012" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pokit Music Player">
+<meta property="og:description" content="A Plex music player with personality. No ads, no tracking, no analytics.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   :root {
-    --bg: #fbf7f4; --card: #ffffff; --ink: #231c1a; --muted: #6f625d; --line: #ece2dc;
-    --coral: #f2705a; --coral-soft: #fde9e4; --glow: rgba(242,112,90,.18);
+    --bg: #fbf7f4; --card: rgba(255,255,255,.72); --card-solid: #ffffff; --ink: #231c1a; --muted: #675a55; --line: rgba(35,28,26,.10);
+    --coral: #f2705a; --coral-text: #b83c27; --coral-soft: #fde9e4; --glow: rgba(242,112,90,.20);
+    --btn-bg: #b83c27; --btn-ink: #ffffff; --shadow: 0 10px 40px rgba(60,30,20,.07); --grain: .05;
+    --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #141012; --card: #1d1719; --ink: #f4ece8; --muted: #b3a49e; --line: #2e2528;
-      --coral: #ff8a73; --coral-soft: #3a211d; --glow: rgba(255,138,115,.16);
+      --bg: #141012; --card: rgba(36,28,30,.62); --card-solid: #1d1719; --ink: #f4ece8; --muted: #b8a9a3; --line: rgba(255,255,255,.10);
+      --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.14); --glow: rgba(255,138,115,.20);
+      --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 10px 40px rgba(0,0,0,.35); --grain: .09;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #141012; --card: #1d1719; --ink: #f4ece8; --muted: #b3a49e; --line: #2e2528;
-    --coral: #ff8a73; --coral-soft: #3a211d; --glow: rgba(255,138,115,.16);
+    --bg: #141012; --card: rgba(36,28,30,.62); --card-solid: #1d1719; --ink: #f4ece8; --muted: #b8a9a3; --line: rgba(255,255,255,.10);
+    --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.14); --glow: rgba(255,138,115,.20);
+    --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 10px 40px rgba(0,0,0,.35); --grain: .09;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  html { scroll-padding-top: 76px; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font: 500 17px/1.6 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
-    background-image: radial-gradient(60rem 30rem at 85% -10%, var(--glow), transparent 70%),
-                      radial-gradient(40rem 24rem at -10% 10%, var(--glow), transparent 70%);
-    background-repeat: no-repeat;
+    font: 500 17px/1.6 var(--font);
+    background-image: radial-gradient(60rem 32rem at 85% -8%, var(--glow), transparent 70%),
+                      radial-gradient(44rem 26rem at -12% 8%, var(--glow), transparent 70%),
+                      radial-gradient(50rem 30rem at 60% 105%, var(--glow), transparent 70%);
+    background-repeat: no-repeat; background-attachment: fixed;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 80px; }
-  header.top { padding: 56px 0 28px; }
-  .brand { display: flex; align-items: center; gap: 12px; font: 900 15px "Inter", sans-serif; letter-spacing: .02em; color: var(--coral); text-transform: uppercase; }
-  .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 18px var(--coral); }
-  h1, h2, h3 { font-family: "Inter", system-ui, sans-serif; font-weight: 900; line-height: 1.15; letter-spacing: -.01em; }
-  h1 { font-size: clamp(34px, 7vw, 50px); margin: 14px 0 10px; }
-  h2 { font-size: 28px; margin: 0 0 6px; }
-  h3 { font-size: 18px; font-weight: 600; margin: 28px 0 6px; }
-  p, li { color: var(--ink); }
-  .lede { color: var(--muted); font-size: 18px; margin: 0; }
-  nav.jump { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
-  nav.jump a, .btn {
-    display: inline-block; padding: 9px 18px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; background: var(--coral-soft); color: var(--coral); border: 1px solid transparent;
+  /* a trace of film grain over the whole page, like the app */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: var(--grain); mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
-  .btn.solid { background: var(--coral); color: #fff; }
-  section.card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 24px;
-    padding: 28px 24px; margin-top: 22px; box-shadow: 0 10px 40px rgba(0,0,0,.04);
-  }
+  a { color: var(--coral-text); text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible, .tablewrap:focus-visible { outline: 3px solid var(--coral-text); outline-offset: 3px; border-radius: 8px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .skip { position: absolute; left: 12px; top: -60px; background: var(--btn-bg); color: var(--btn-ink); padding: 10px 16px; border-radius: 999px; z-index: 100; font-weight: 700; text-decoration: none; }
+  .skip:focus { top: 12px; }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 72px; }
+  h1, h2, h3 { font-family: var(--font); font-weight: 900; line-height: 1.12; letter-spacing: -.015em; margin: 0; }
+  h3 { font-size: 18px; font-weight: 800; margin: 30px 0 6px; scroll-margin-top: 80px; }
+  h2 { font-size: 30px; margin: 0 0 6px; }
+  p { margin: 0 0 12px; }
+
+  /* sticky navigation */
+  .bar { position: sticky; top: 8px; z-index: 40; margin: 8px 0 0; display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px;
+    border-radius: 999px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+  .bar .name { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 15px; margin-right: auto; color: var(--ink); text-decoration: none; }
+  .bar .name img { width: 24px; height: 24px; border-radius: 7px; }
+  .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px; background: transparent; color: var(--coral-text); }
+  .pill:hover { background: var(--coral-soft); }
+  .pill.solid { background: var(--btn-bg); color: var(--btn-ink); }
+  .pill.solid:hover { background: var(--btn-bg); filter: brightness(1.06); }
+
+  /* hero */
+  .hero { padding: 54px 0 14px; text-align: left; }
+  .appicon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 0 0 1px var(--line), 0 16px 40px rgba(60,30,20,.22); display: block; }
+  .hero h1 { font-size: clamp(44px, 11vw, 78px); margin: 22px 0 8px; }
+  .hero .tag { font-size: clamp(20px, 4.4vw, 26px); font-weight: 800; margin: 0 0 12px; letter-spacing: -.01em; }
+  .lede { color: var(--muted); font-size: 18px; margin: 0 0 22px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* features */
+  .features { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 34px 0 0; }
+  .feat { padding: 20px 20px 18px; border-radius: 22px; background: var(--card); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: var(--shadow); }
+  .feat h3 { margin: 0 0 6px; font-size: 18px; }
+  .feat p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.5; }
+  .plexnote { margin-top: 12px; padding: 18px 20px; border-radius: 22px; background: var(--coral-soft); font-size: 16px; }
+  .plexnote strong { font-weight: 800; }
+
+  /* cards */
+  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 30px 26px; margin-top: 28px; box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); scroll-margin-top: 76px; }
   .meta { color: var(--muted); font-size: 15px; margin: 0 0 18px; }
-  .summary { background: var(--coral-soft); border-radius: 16px; padding: 16px 18px; margin: 18px 0 8px; }
+  .summary { background: var(--coral-soft); border-radius: 18px; padding: 16px 18px; margin: 18px 0 8px; }
   .summary ul { margin: 6px 0 0; padding-left: 20px; }
-  a { color: var(--coral); }
+  .toc { border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; margin: 0 0 18px; }
+  .toc strong { display: block; font-weight: 800; margin-bottom: 4px; }
+  .toc ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 28px; font-size: 15px; }
+  .toc li { break-inside: avoid; padding: 3px 0; }
   table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 10px 0; }
   th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
-  th { font-family: "Inter", sans-serif; font-weight: 600; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  th { font-weight: 700; color: var(--muted); font-size: 13.5px; text-transform: uppercase; letter-spacing: .04em; }
   .tablewrap { overflow-x: auto; }
   .contact { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin: 16px 0 6px; }
   .contact .box { border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
-  .contact .box strong { display: block; font-family: "Inter", sans-serif; font-weight: 600; margin-bottom: 4px; }
+  .contact .box strong { display: block; font-weight: 800; margin-bottom: 4px; }
   .contact .box a { word-break: break-all; }
-  details { border-top: 1px solid var(--line); padding: 12px 0; }
-  details summary { cursor: pointer; font-weight: 700; }
+  details { border-top: 1px solid var(--line); }
+  details summary { cursor: pointer; font-weight: 700; padding: 14px 0; min-height: 48px; }
+  details p { margin-bottom: 14px; }
+  .totop { margin: 22px 0 0; font-size: 15px; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 40px; }
-  @media (max-width: 560px) { .contact { grid-template-columns: 1fr; } section.card { padding: 22px 18px; } }
+  footer a { color: var(--muted); }
+  @media (max-width: 640px) {
+    .toc ol { columns: 1; }
+    .contact { grid-template-columns: 1fr; }
+    section.card { padding: 24px 18px; }
+    .bar .name span { display: none; }
+    /* the services table stacks into little cards on a phone, so nothing is cut off or needs sideways scrolling */
+    .tablewrap table, .tablewrap tbody, .tablewrap tr, .tablewrap td { display: block; width: 100%; }
+    .tablewrap tr:first-child { display: none; }
+    .tablewrap tr { border: 1px solid var(--line); border-radius: 16px; padding: 8px 14px; margin-bottom: 10px; }
+    .tablewrap td { border: 0; padding: 6px 0; }
+    .tablewrap td::before { content: attr(data-label); display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  }
 </style>
 </head>
-<body>
+<body id="top">
+<a class="skip" href="#privacy">Skip to the privacy policy</a>
 <div class="wrap">
-  <header class="top">
-    <div class="brand"><span class="dot"></span>Pokit Music Player</div>
-    <h1>Privacy and Support</h1>
+  <nav class="bar" aria-label="Page sections">
+    <a class="name" href="#top"><img src="favicon.png" alt="" width="24" height="24"><span>Pokit</span></a>
+    <a class="pill" href="#privacy">Privacy</a>
+    <a class="pill" href="#support">Support</a>
+  </nav>
+
+  <main>
+  <header class="hero">
+    <img class="appicon" src="pokit-icon.png" alt="Pokit app icon" width="96" height="96">
+    <h1>Pokit</h1>
+    <p class="tag">A Plex music player with personality.</p>
     <p class="lede">Pokit plays the music on your own Plex server. It has no ads, no tracking and no analytics, and your library stays yours.</p>
-    <nav class="jump"><a href="#privacy">Privacy Policy</a><a href="#support">Support</a></nav>
+    <div class="cta">
+      <a class="pill solid" href="mailto:pokitmusicplayer@proton.me?subject=Pokit%20support">Email Support</a>
+      <a class="pill" href="#privacy">Read the privacy policy</a>
+    </div>
   </header>
+
+  <h2 class="sr">What Pokit does</h2>
+  <div class="features" role="list">
+    <div class="feat" role="listitem"><h3>Beautiful artist pages</h3><p>Photos, logos and bios for your artists, with your most played songs and what was added recently.</p></div>
+    <div class="feat" role="listitem"><h3>Backgrounds that move</h3><p>Living themes with light and dark looks that move with your music, or keep it classic.</p></div>
+    <div class="feat" role="listitem"><h3>Listening Stats and Recaps</h3><p>See what you've played, then share a monthly or yearly recap. (Pokit Pro)</p></div>
+    <div class="feat" role="listitem"><h3>Share what you're playing</h3><p>Turn the song you're on into a share image, with backdrops and fonts you can change.</p></div>
+    <div class="feat" role="listitem"><h3>Pins, ratings and Shuffle All</h3><p>Pin your favorites, rate songs and have the stars sync with Plex, or shuffle everything in one tap.</p></div>
+    <div class="feat" role="listitem"><h3>Made for everyone</h3><p>Jump to any letter in your artist list, with large text and VoiceOver support.</p></div>
+  </div>
+  <div class="plexnote"><strong>New to Plex?</strong> Plex is software that organizes the music, movies and shows you own and streams them to your devices. To use Pokit you need a Plex account and a Plex Media Server with a music library. Pokit doesn't come with a music catalog.</div>
 
   <!-- ============ PRIVACY ============ -->
   <section class="card" id="privacy">
     <h2>Privacy Policy</h2>
     <p class="meta">Effective November 14th, 2026. Updated November 22nd, 2026.</p>
 
+    <nav class="toc" aria-label="In this policy"><strong>In this policy</strong><ol><li><a href="#p1">Information that stays on your device</a></li><li><a href="#p2">Plex</a></li><li><a href="#p3">Music information services</a></li><li><a href="#p4">Song recognition</a></li><li><a href="#p5">iCloud Backup (Pokit Pro)</a></li><li><a href="#p6">Purchases and tips</a></li><li><a href="#p7">Guest Mode (Pokit Pro)</a></li><li><a href="#p8">Photos, calendar and notifications</a></li><li><a href="#p9">Diagnostics and support emails</a></li><li><a href="#p10">Children</a></li><li><a href="#p11">Your choices</a></li><li><a href="#p12">Changes</a></li><li><a href="#p13">Contact</a></li></ol></nav>
     <p>This policy explains what Pokit Music Player ("Pokit", "the app") does with your information. Pokit is made by Jay Davis, an independent developer ("I", "me").</p>
 
     <div class="summary">
@@ -94,64 +177,65 @@
       </ul>
     </div>
 
-    <h3>1. Information that stays on your device</h3>
+    <h3 id="p1">1. Information that stays on your device</h3>
     <p>Pokit keeps these on your iPhone or iPad so the app works: your Plex sign-in (in the Keychain, set to this device only and left out of device backups), your server address, your settings, pins, listening history, Stats, Achievements, downloaded songs and saved artwork. None of this is sent to me. Deleting the app, or using <em>Reset App</em> in Settings, removes it.</p>
 
-    <h3>2. Plex</h3>
+    <h3 id="p2">2. Plex</h3>
     <p>When you sign in, Pokit uses Plex's own sign-in page on plex.tv and then connects to your Plex Media Server to browse and play your music. Like other Plex apps, Pokit tells your server and Plex things such as the app name, device name and a random app identifier, and it reports playback progress and ratings to your server so they show up in Plex. This information goes to your own server and to Plex, not to me. Plex's handling of your account is covered by the <a href="https://www.plex.tv/about/privacy-legal/">Plex Privacy Policy</a>. Pokit is not made by or affiliated with Plex, Inc.</p>
 
-    <h3>3. Music information services</h3>
+    <h3 id="p3">3. Music information services</h3>
     <p>To show artist photos, logos, bios, album details and upcoming releases, Pokit asks these public services about the music in your library. A request contains things like an artist name, album or song title, or a MusicBrainz ID. It does not contain your name, email, Plex account or any identifier for you. As with any website, these services can see your device's IP address when Pokit contacts them.</p>
-    <div class="tablewrap">
+    <div class="tablewrap" tabindex="0" role="region" aria-label="Services Pokit contacts (scrolls sideways on small screens)">
     <table>
       <tr><th>Service</th><th>What Pokit sends</th><th>What it's used for</th></tr>
-      <tr><td><a href="https://musicbrainz.org/">MusicBrainz</a></td><td>Artist, album and song names or MusicBrainz IDs</td><td>Artist details, links, release types and dates</td></tr>
-      <tr><td><a href="https://fanart.tv/">fanart.tv</a></td><td>An artist's MusicBrainz ID, plus a personal fanart.tv key if you add one in Settings</td><td>Artist backgrounds and logos</td></tr>
-      <tr><td><a href="https://coverartarchive.org/">Cover Art Archive</a></td><td>A MusicBrainz release ID</td><td>Album covers for upcoming releases</td></tr>
-      <tr><td><a href="https://www.wikipedia.org/">Wikipedia</a></td><td>Artist and album names</td><td>Album liner notes and release info</td></tr>
-      <tr><td>Apple (iTunes Search)</td><td>Artist names and album IDs</td><td>Upcoming releases and song previews (Pro)</td></tr>
-      <tr><td><a href="https://lrclib.net/">LRCLIB</a></td><td>Song title, artist, album and length</td><td>Song lyrics, only when you turn on Lyrics in the Now Playing menu and your Plex server has none</td></tr>
-      <tr><td><a href="https://musicbrainz.org/">MusicBrainz</a> and Cover Art Archive</td><td>Album and artist name</td><td>Suggested release year and cover art, only when you tap Look Up in Library Tidy-Up</td></tr>
-      <tr><td>Google Fonts</td><td>The name of a font</td><td>Downloading fonts for some share-card styles</td></tr>
+      <tr><td data-label="Service"><a href="https://musicbrainz.org/">MusicBrainz</a></td><td data-label="What Pokit sends">Artist, album and song names or MusicBrainz IDs</td><td data-label="What it's used for">Artist details, links, release types and dates</td></tr>
+      <tr><td data-label="Service"><a href="https://fanart.tv/">fanart.tv</a></td><td data-label="What Pokit sends">An artist's MusicBrainz ID, plus a personal fanart.tv key if you add one in Settings</td><td data-label="What it's used for">Artist backgrounds and logos</td></tr>
+      <tr><td data-label="Service"><a href="https://coverartarchive.org/">Cover Art Archive</a></td><td data-label="What Pokit sends">A MusicBrainz release ID</td><td data-label="What it's used for">Album covers for upcoming releases</td></tr>
+      <tr><td data-label="Service"><a href="https://www.wikipedia.org/">Wikipedia</a></td><td data-label="What Pokit sends">Artist and album names</td><td data-label="What it's used for">Album liner notes and release info</td></tr>
+      <tr><td data-label="Service">Apple (iTunes Search)</td><td data-label="What Pokit sends">Artist names and album IDs</td><td data-label="What it's used for">Upcoming releases and song previews (Pro)</td></tr>
+      <tr><td data-label="Service"><a href="https://lrclib.net/">LRCLIB</a></td><td data-label="What Pokit sends">Song title, artist, album and length</td><td data-label="What it's used for">Song lyrics, only when you turn on Lyrics in the Now Playing menu and your Plex server has none</td></tr>
+      <tr><td data-label="Service"><a href="https://musicbrainz.org/">MusicBrainz</a> and Cover Art Archive</td><td data-label="What Pokit sends">Album and artist name</td><td data-label="What it's used for">Suggested release year and cover art, only when you tap Look Up in Library Tidy-Up</td></tr>
+      <tr><td data-label="Service">Google Fonts</td><td data-label="What Pokit sends">The name of a font</td><td data-label="What it's used for">Downloading fonts for some share-card styles</td></tr>
     </table>
     </div>
     <p>Links to other sites (for example Genius, Wikipedia, Reddit or an artist's social pages) only open when you tap them, and those sites have their own privacy policies.</p>
     <p><strong>Credits.</strong> Artist and release information is provided by <a href="https://musicbrainz.org/">MusicBrainz</a>, the open music encyclopedia. Artist images and logos are provided by <a href="https://fanart.tv/">fanart.tv</a> and belong to their respective contributors. Pokit is not endorsed by MusicBrainz or fanart.tv.</p>
 
-    <h3>4. Song recognition</h3>
+    <h3 id="p4">4. Song recognition</h3>
     <p>"Is this in my library?" uses Apple's ShazamKit. The microphone is only used after you tap to start, and only for a few seconds. ShazamKit turns the sound into a signature and Apple's Shazam service matches it. Pokit doesn't record or keep audio. Apple's privacy policy applies to ShazamKit.</p>
 
-    <h3>5. iCloud Backup (Pokit Pro)</h3>
+    <h3 id="p5">5. iCloud Backup (Pokit Pro)</h3>
     <p>If you turn on Backup, Pokit saves one file to your own iCloud Drive with your settings, pins, listening history and Stats. Your Plex sign-in, downloads and cached songs are not included. The file is stored by Apple in your iCloud account. I can't see it. You can delete it in the Files app or in iOS Settings &gt; your name &gt; iCloud.</p>
 
-    <h3>6. Purchases and tips</h3>
+    <h3 id="p6">6. Purchases and tips</h3>
     <p>Pokit Pro and tips are bought through Apple's App Store. Apple handles payment and I never receive your card details. Pokit checks on your device whether you own Pro. I only receive the regular sales reports Apple gives all developers, which don't identify you personally.</p>
 
-    <h3>7. Guest Mode (Pokit Pro)</h3>
+    <h3 id="p7">7. Guest Mode (Pokit Pro)</h3>
     <p>Guest Mode lets friends on the same Wi-Fi add songs to your queue from a web page that runs on your phone. Guests type a name (up to 24 characters) and can pick songs and send short messages. This stays on your local network between their browser and your phone. It is never sent to me, and guests never connect to your Plex server or see your Plex sign-in.</p>
 
-    <h3>8. Photos, calendar and notifications</h3>
+    <h3 id="p8">8. Photos, calendar and notifications</h3>
     <ul>
       <li><strong>Photos:</strong> Pokit asks to <em>add</em> photos only when you save a share image. If you pick a picture as a cover (for example for a playlist), it's resized and uploaded to your own Plex server.</li>
       <li><strong>Calendar:</strong> "Add to Calendar" for an upcoming release opens Apple's standard event screen. Nothing is added unless you save it.</li>
       <li><strong>Notifications:</strong> Release reminders are scheduled on your device. Pokit doesn't use push notifications.</li>
     </ul>
 
-    <h3>9. Diagnostics and support emails</h3>
+    <h3 id="p9">9. Diagnostics and support emails</h3>
     <p>Pokit keeps a diagnostic log on your device to help fix problems. It can include what the app was doing, your device model, iOS version and crash reports that iOS hands to the app. The log never leaves your device unless you choose to send it with <em>Report a Problem</em> or export it. Before it's attached, Pokit removes your Plex sign-in, email addresses, web addresses and server addresses. The email opens in your own Mail app so you can read it before sending, and you can turn the attachment off.</p>
     <p>If you email me, I'll see your email address and whatever you include, and I'll use it only to answer you and fix the problem. Ask and I'll delete it. Separately, if you've turned on <em>Share With App Developers</em> in iOS Settings, Apple may give me anonymous crash reports, as it does for every app.</p>
 
-    <h3>10. Children</h3>
+    <h3 id="p10">10. Children</h3>
     <p>Pokit isn't directed at children under 13 and doesn't knowingly collect information from anyone.</p>
 
-    <h3>11. Your choices</h3>
+    <h3 id="p11">11. Your choices</h3>
     <p>You can sign out at any time, reset Pokit in Settings, delete your iCloud backup, deny or remove microphone and photo permissions in iOS Settings, or delete the app. Because I don't hold your data, there is nothing on my side to delete unless you've emailed me.</p>
 
-    <h3>12. Changes</h3>
+    <h3 id="p12">12. Changes</h3>
     <p>If this policy changes, I'll update this page and the date at the top.</p>
 
-    <h3>13. Contact</h3>
+    <h3 id="p13">13. Contact</h3>
     <p>Questions about privacy: <a href="mailto:pokitmusicplayer@proton.me">pokitmusicplayer@proton.me</a></p>
+    <p class="totop"><a href="#top">Back to top</a></p>
   </section>
 
   <!-- ============ SUPPORT ============ -->
@@ -171,7 +255,6 @@
         <p class="meta" style="margin:6px 0 0">Tips, feature ideas and news.</p>
       </div>
     </div>
-    <p><a class="btn solid" href="mailto:pokitmusicplayer@proton.me?subject=Pokit%20support">Email Support</a></p>
 
     <h3>Common questions</h3>
     <details>
@@ -198,10 +281,14 @@
       <summary>How do I move my stats to a new phone?</summary>
       <p>With Pokit Pro, use iCloud Backup in Settings on your old device, then <em>Restore From iCloud</em> on the new one.</p>
     </details>
+    <p class="totop"><a href="#top">Back to top</a></p>
   </section>
 
+
+  </main>
   <footer>
-    Pokit Music Player &middot; Not affiliated with Plex, Inc. &middot; &copy; 2026 Jay Davis
+    Pokit Music Player &middot; Not affiliated with Plex, Inc. &middot; &copy; 2026 Jay Davis<br>
+    <a href="#privacy">Privacy</a> &middot; <a href="#support">Support</a>
   </footer>
 </div>
 </body>
