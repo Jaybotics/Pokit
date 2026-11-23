@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pokit Music Player: a Plex music player with personality</title>
 <meta name="description" content="Pokit is a music player for your own Plex server, with artist pages, listening stats, shareable recaps and backgrounds that move with your music. No ads, no tracking, no analytics.">
-<meta name="theme-color" content="#fbf7f4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#141012" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fbf1ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#140f14" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pokit Music Player">
 <meta property="og:description" content="A Plex music player with personality. No ads, no tracking, no analytics.">
@@ -15,107 +15,151 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   :root {
-    --bg: #fbf7f4; --card: rgba(255,255,255,.72); --card-solid: #ffffff; --ink: #231c1a; --muted: #675a55; --line: rgba(35,28,26,.10);
-    --coral: #f2705a; --coral-text: #b83c27; --coral-soft: #fde9e4; --glow: rgba(242,112,90,.20);
-    --btn-bg: #b83c27; --btn-ink: #ffffff; --shadow: 0 10px 40px rgba(60,30,20,.07); --grain: .05;
+    color-scheme: light dark;
+    --bg: #fbf1ea; --card: rgba(255,255,255,.80); --ink: #231c1a; --lede: #4a3d38; --muted: #675a55; --line: rgba(35,28,26,.12);
+    --coral: #f2705a; --coral-text: #b83c27; --coral-soft: rgba(242,112,90,.14);
+    --btn-bg: #231c1a; --btn-ink: #ffffff; --shadow: 0 12px 40px rgba(90,40,20,.10); --grain: .06;
+    --b1: #ff7a59; --b2: #ffc15a; --b3: #ff5fa2; --b4: #9a7bff; --blob: .62;
     --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ease: cubic-bezier(.16, 1, .3, 1);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #141012; --card: rgba(36,28,30,.62); --card-solid: #1d1719; --ink: #f4ece8; --muted: #b8a9a3; --line: rgba(255,255,255,.10);
-      --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.14); --glow: rgba(255,138,115,.20);
-      --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 10px 40px rgba(0,0,0,.35); --grain: .09;
+      --bg: #140f14; --card: rgba(34,25,32,.72); --ink: #f6eeea; --lede: #dccfca; --muted: #bcaca6; --line: rgba(255,255,255,.12);
+      --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.16);
+      --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 12px 40px rgba(0,0,0,.40); --grain: .10;
+      --b1: #ff6a4d; --b2: #ffb03a; --b3: #e8409a; --b4: #7a5cff; --blob: .50;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #141012; --card: rgba(36,28,30,.62); --card-solid: #1d1719; --ink: #f4ece8; --muted: #b8a9a3; --line: rgba(255,255,255,.10);
-    --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.14); --glow: rgba(255,138,115,.20);
-    --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 10px 40px rgba(0,0,0,.35); --grain: .09;
+    --bg: #140f14; --card: rgba(34,25,32,.72); --ink: #f6eeea; --lede: #dccfca; --muted: #bcaca6; --line: rgba(255,255,255,.12);
+    --coral: #ff8a73; --coral-text: #ff9a85; --coral-soft: rgba(255,138,115,.16);
+    --btn-bg: #ff8a73; --btn-ink: #1a0f0c; --shadow: 0 12px 40px rgba(0,0,0,.40); --grain: .10;
+    --b1: #ff6a4d; --b2: #ffb03a; --b3: #e8409a; --b4: #7a5cff; --blob: .50;
   }
   * { box-sizing: border-box; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-  html { scroll-padding-top: 76px; }
-  body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 500 17px/1.6 var(--font);
-    background-image: radial-gradient(60rem 32rem at 85% -8%, var(--glow), transparent 70%),
-                      radial-gradient(44rem 26rem at -12% 8%, var(--glow), transparent 70%),
-                      radial-gradient(50rem 30rem at 60% 105%, var(--glow), transparent 70%);
-    background-repeat: no-repeat; background-attachment: fixed;
-  }
+  html { scroll-padding-top: 76px; accent-color: var(--coral); }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 500 17px/1.6 var(--font); overflow-x: hidden; position: relative; }
+  ::selection { background: var(--coral); color: #1a0f0c; }
+  /* the page's own light, like the app's living backgrounds: four soft colors drifting slowly behind the top of the page */
+  .aurora { position: absolute; top: 0; left: 0; right: 0; height: min(980px, 118vh); overflow: hidden; z-index: -1; pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .aurora i { position: absolute; display: block; border-radius: 50%; opacity: var(--blob); will-change: transform; }
+  .aurora .b1 { width: 90vmax; height: 90vmax; left: -34vmax; top: -48vmax; background: radial-gradient(closest-side, var(--b1), transparent); animation: drift1 26s ease-in-out infinite alternate; }
+  .aurora .b2 { width: 70vmax; height: 70vmax; right: -30vmax; top: -22vmax; background: radial-gradient(closest-side, var(--b2), transparent); animation: drift2 31s ease-in-out infinite alternate; }
+  .aurora .b3 { width: 80vmax; height: 80vmax; left: 6vmax; top: 6vmax; background: radial-gradient(closest-side, var(--b3), transparent); animation: drift3 37s ease-in-out infinite alternate; opacity: calc(var(--blob) * .7); }
+  .aurora .b4 { width: 66vmax; height: 66vmax; right: -16vmax; top: 18vmax; background: radial-gradient(closest-side, var(--b4), transparent); animation: drift4 29s ease-in-out infinite alternate; opacity: calc(var(--blob) * .75); }
+  @keyframes drift1 { to { transform: translate3d(14vmax, 10vmax, 0) scale(1.12); } }
+  @keyframes drift2 { to { transform: translate3d(-16vmax, 14vmax, 0) scale(.92); } }
+  @keyframes drift3 { to { transform: translate3d(12vmax, -8vmax, 0) scale(1.15); } }
+  @keyframes drift4 { to { transform: translate3d(-10vmax, -12vmax, 0) scale(1.08); } }
   /* a trace of film grain over the whole page, like the app */
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: var(--grain); mix-blend-mode: soft-light;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: var(--grain); mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1.4 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
   a { color: var(--coral-text); text-underline-offset: 3px; }
   a:focus-visible, summary:focus-visible, .tablewrap:focus-visible { outline: 3px solid var(--coral-text); outline-offset: 3px; border-radius: 8px; }
-  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .skip { position: absolute; left: 12px; top: -60px; background: var(--btn-bg); color: var(--btn-ink); padding: 10px 16px; border-radius: 999px; z-index: 100; font-weight: 700; text-decoration: none; }
   .skip:focus { top: 12px; }
-  .wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 72px; }
-  h1, h2, h3 { font-family: var(--font); font-weight: 900; line-height: 1.12; letter-spacing: -.015em; margin: 0; }
-  h3 { font-size: 18px; font-weight: 800; margin: 30px 0 6px; scroll-margin-top: 80px; }
-  h2 { font-size: 30px; margin: 0 0 6px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .wrap { max-width: 840px; margin: 0 auto; padding: 0 16px 72px; }
+  h1, h2, h3 { font-family: var(--font); font-weight: 900; line-height: 1.08; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+  h3 { font-size: 18px; font-weight: 800; margin: 30px 0 6px; scroll-margin-top: 80px; letter-spacing: -.01em; }
+  h2 { font-size: 32px; margin: 0 0 6px; }
   p { margin: 0 0 12px; }
 
   /* sticky navigation */
   .bar { position: sticky; top: 8px; z-index: 40; margin: 8px 0 0; display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px;
     border-radius: 999px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow);
-    -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+    -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5); }
   .bar .name { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 15px; margin-right: auto; color: var(--ink); text-decoration: none; }
   .bar .name img { width: 24px; height: 24px; border-radius: 7px; }
   .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; font-size: 15px; background: transparent; color: var(--coral-text); }
+    font-weight: 700; font-size: 15px; background: transparent; color: var(--coral-text); transition: background-color .2s var(--ease), transform .2s var(--ease); }
   .pill:hover { background: var(--coral-soft); }
   .pill.solid { background: var(--btn-bg); color: var(--btn-ink); }
-  .pill.solid:hover { background: var(--btn-bg); filter: brightness(1.06); }
+  .pill.solid:hover { background: var(--btn-bg); transform: translateY(-1px); }
+  .pill.ghost { color: var(--ink); border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent); }
+  .pill.ghost:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 
   /* hero */
-  .hero { padding: 54px 0 14px; text-align: left; }
-  .appicon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 0 0 1px var(--line), 0 16px 40px rgba(60,30,20,.22); display: block; }
-  .hero h1 { font-size: clamp(44px, 11vw, 78px); margin: 22px 0 8px; }
-  .hero .tag { font-size: clamp(20px, 4.4vw, 26px); font-weight: 800; margin: 0 0 12px; letter-spacing: -.01em; }
-  .lede { color: var(--muted); font-size: 18px; margin: 0 0 22px; max-width: 34em; }
+  .hero { padding: 60px 0 30px; position: relative; }
+  .mark { position: relative; width: 104px; height: 104px; }
+  .appicon { position: relative; width: 104px; height: 104px; border-radius: 24px; display: block; box-shadow: 0 0 0 1px var(--line), 0 18px 36px rgba(60,20,10,.30); }
+  /* the icon's own rings, sent out slowly like sound */
+  .ring { position: absolute; inset: 0; border-radius: 24px; border: 2px solid var(--coral); opacity: 0; transform: scale(1); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ring { animation: ring 5.4s cubic-bezier(.2,.6,.3,1) infinite; }
+    .ring.r2 { animation-delay: 1.8s; } .ring.r3 { animation-delay: 3.6s; }
+    @keyframes ring { 0% { opacity: .55; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
+    .hero > * { animation: rise .9s var(--ease) backwards; }
+    .hero > .mark { animation-delay: 0s; } .hero h1 { animation-delay: .08s; } .hero .tag { animation-delay: .16s; } .hero .lede { animation-delay: .24s; } .hero .cta { animation-delay: .32s; }
+    @keyframes rise { from { opacity: .0; transform: translateY(16px); } }
+  }
+  @media (prefers-reduced-motion: reduce) { .ring.r1 { opacity: .28; transform: scale(1.4); } .ring.r2 { opacity: .16; transform: scale(1.9); } .aurora i { animation: none !important; } }
+  .hero h1 { font-size: clamp(64px, 18vw, 96px); letter-spacing: -.04em; margin: 26px 0 10px; line-height: .98; }
+  .hero .tag { font-size: clamp(24px, 5.2vw, 36px); font-weight: 800; margin: 0 0 14px; letter-spacing: -.02em; line-height: 1.12; max-width: 14em; }
+  .lede { color: var(--lede); font-size: 19px; margin: 0 0 26px; max-width: 32em; }
   .cta { display: flex; flex-wrap: wrap; gap: 10px; }
 
-  /* features */
-  .features { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 34px 0 0; }
-  .feat { padding: 20px 20px 18px; border-radius: 22px; background: var(--card); border: 1px solid var(--line);
-    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: var(--shadow); }
-  .feat h3 { margin: 0 0 6px; font-size: 18px; }
-  .feat p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.5; }
-  .plexnote { margin-top: 12px; padding: 18px 20px; border-radius: 22px; background: var(--coral-soft); font-size: 16px; }
-  .plexnote strong { font-weight: 800; }
+  /* features: a bento of different sizes and colors, each from one of the app's themes */
+  .features { display: grid; gap: 12px; grid-template-columns: repeat(6, 1fr); margin: 30px 0 0; }
+  .tile { grid-column: span 3; border-radius: 28px; padding: 26px 26px 24px; color: #fff; position: relative; overflow: hidden; min-height: 190px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    background-image: radial-gradient(120% 90% at 100% 0%, rgba(255,255,255,.22), transparent 55%); box-shadow: 0 14px 34px rgba(30,10,10,.18); }
+  .tile .in { display: block; transition: transform .35s var(--ease); }
+  .tile:hover .in { transform: translateY(-3px); }
+  .tile h3 { margin: 0 0 8px; font-size: clamp(24px, 4.2vw, 30px); letter-spacing: -.025em; }
+  .tile p { margin: 0; font-size: 16.5px; line-height: 1.45; opacity: .96; max-width: 26em; }
+  .t1 { grid-column: span 4; min-height: 270px; background-color: #c2412b; }
+  .t1 h3 { font-size: clamp(32px, 6.4vw, 46px); line-height: 1.02; }
+  .t2 { grid-column: span 2; background-color: #6b3fd4; }
+  .t3 { grid-column: span 2; background-color: #b3237a; }
+  .t4 { grid-column: span 2; background-color: #0e7c86; }
+  .t5 { grid-column: span 2; background-color: #1f5fd1; }
+  .t6 { grid-column: span 6; min-height: 150px; background-color: #ffb23f; color: #2a1608; background-image: radial-gradient(120% 120% at 0% 100%, rgba(255,255,255,.35), transparent 60%); box-shadow: 0 14px 34px rgba(90,50,10,.18); }
+  .plexnote { margin-top: 12px; padding: 22px 24px; border-radius: 26px; background: #1d1519; color: #f6eeea; font-size: 17px; line-height: 1.5; box-shadow: 0 14px 34px rgba(30,10,10,.18); }
+  .plexnote strong { font-weight: 900; color: #ffb23f; }
+  .reveal .tile { opacity: 0; transform: translateY(22px); }
+  .reveal .tile.seen { opacity: 1; transform: none; transition: opacity .7s var(--ease) var(--d, 0ms), transform .8s var(--ease) var(--d, 0ms); }
 
   /* cards */
-  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 30px 26px; margin-top: 28px; box-shadow: var(--shadow);
-    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); scroll-margin-top: 76px; }
+  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 32px 26px; margin-top: 34px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); scroll-margin-top: 76px; }
+  section.card > * { position: relative; }
+  #privacy::before { content: ""; position: absolute; width: 520px; height: 520px; right: -200px; top: -240px; border-radius: 50%; background: radial-gradient(closest-side, var(--b3), transparent); opacity: .22; }
+  #support::before { content: ""; position: absolute; width: 520px; height: 520px; left: -220px; top: -240px; border-radius: 50%; background: radial-gradient(closest-side, var(--b4), transparent); opacity: .22; }
   .meta { color: var(--muted); font-size: 15px; margin: 0 0 18px; }
-  .summary { background: var(--coral-soft); border-radius: 18px; padding: 16px 18px; margin: 18px 0 8px; }
+  .summary { background: var(--coral-soft); border-radius: 20px; padding: 18px 20px; margin: 18px 0 8px; }
   .summary ul { margin: 6px 0 0; padding-left: 20px; }
   .toc { border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; margin: 0 0 18px; }
   .toc strong { display: block; font-weight: 800; margin-bottom: 4px; }
   .toc ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 28px; font-size: 15px; }
   .toc li { break-inside: avoid; padding: 3px 0; }
-  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 10px 0; font-variant-numeric: tabular-nums; }
   th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
   th { font-weight: 700; color: var(--muted); font-size: 13.5px; text-transform: uppercase; letter-spacing: .04em; }
-  .tablewrap { overflow-x: auto; }
+  .tablewrap { overflow-x: auto; scrollbar-color: var(--coral) transparent; }
   .contact { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin: 16px 0 6px; }
   .contact .box { border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
   .contact .box strong { display: block; font-weight: 800; margin-bottom: 4px; }
   .contact .box a { word-break: break-all; }
   details { border-top: 1px solid var(--line); }
-  details summary { cursor: pointer; font-weight: 700; padding: 14px 0; min-height: 48px; }
+  details summary { cursor: pointer; font-weight: 700; padding: 14px 0; min-height: 48px; transition: color .2s var(--ease); }
+  details[open] summary { color: var(--coral-text); }
   details p { margin-bottom: 14px; }
   .totop { margin: 22px 0 0; font-size: 15px; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 40px; }
   footer a { color: var(--muted); }
+  @media (max-width: 720px) {
+    .features { grid-template-columns: 1fr; }
+    .tile, .t1, .t2, .t3, .t4, .t5, .t6 { grid-column: auto; min-height: 150px; }
+    .t1 { min-height: 220px; }
+  }
   @media (max-width: 640px) {
     .toc ol { columns: 1; }
     .contact { grid-template-columns: 1fr; }
-    section.card { padding: 24px 18px; }
+    section.card { padding: 26px 18px; }
     .bar .name span { display: none; }
     /* the services table stacks into little cards on a phone, so nothing is cut off or needs sideways scrolling */
     .tablewrap table, .tablewrap tbody, .tablewrap tr, .tablewrap td { display: block; width: 100%; }
@@ -127,6 +171,7 @@
 </style>
 </head>
 <body id="top">
+<div class="aurora" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
 <a class="skip" href="#privacy">Skip to the privacy policy</a>
 <div class="wrap">
   <nav class="bar" aria-label="Page sections">
@@ -137,24 +182,24 @@
 
   <main>
   <header class="hero">
-    <img class="appicon" src="pokit-icon.png" alt="Pokit app icon" width="96" height="96">
+    <div class="mark"><span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span><img class="appicon" src="pokit-icon.png" alt="Pokit app icon" width="104" height="104"></div>
     <h1>Pokit</h1>
     <p class="tag">A Plex music player with personality.</p>
     <p class="lede">Pokit plays the music on your own Plex server. It has no ads, no tracking and no analytics, and your library stays yours.</p>
     <div class="cta">
       <a class="pill solid" href="mailto:pokitmusicplayer@proton.me?subject=Pokit%20support">Email Support</a>
-      <a class="pill" href="#privacy">Read the privacy policy</a>
+      <a class="pill ghost" href="#privacy">Read the privacy policy</a>
     </div>
   </header>
 
   <h2 class="sr">What Pokit does</h2>
-  <div class="features" role="list">
-    <div class="feat" role="listitem"><h3>Beautiful artist pages</h3><p>Photos, logos and bios for your artists, with your most played songs and what was added recently.</p></div>
-    <div class="feat" role="listitem"><h3>Backgrounds that move</h3><p>Living themes with light and dark looks that move with your music, or keep it classic.</p></div>
-    <div class="feat" role="listitem"><h3>Listening Stats and Recaps</h3><p>See what you've played, then share a monthly or yearly recap. (Pokit Pro)</p></div>
-    <div class="feat" role="listitem"><h3>Share what you're playing</h3><p>Turn the song you're on into a share image, with backdrops and fonts you can change.</p></div>
-    <div class="feat" role="listitem"><h3>Pins, ratings and Shuffle All</h3><p>Pin your favorites, rate songs and have the stars sync with Plex, or shuffle everything in one tap.</p></div>
-    <div class="feat" role="listitem"><h3>Made for everyone</h3><p>Jump to any letter in your artist list, with large text and VoiceOver support.</p></div>
+  <div class="features">
+    <div class="tile t1"><span class="in"><h3>Beautiful artist pages</h3><p>Photos, logos and bios for your artists, with your most played songs and what was added recently.</p></span></div>
+    <div class="tile t2"><span class="in"><h3>Backgrounds that move</h3><p>Living themes with light and dark looks that move with your music, or keep it classic.</p></span></div>
+    <div class="tile t3"><span class="in"><h3>Stats and Recaps</h3><p>See what you've played, then share a monthly or yearly recap. (Pokit Pro)</p></span></div>
+    <div class="tile t4"><span class="in"><h3>Share what you're playing</h3><p>Turn the song you're on into a share image, with backdrops and fonts you can change.</p></span></div>
+    <div class="tile t5"><span class="in"><h3>Pins, ratings, Shuffle All</h3><p>Pin your favorites, rate songs with stars that sync with Plex, or shuffle everything in one tap.</p></span></div>
+    <div class="tile t6"><span class="in"><h3>Made for everyone</h3><p>Jump to any letter in your artist list, with large text and VoiceOver support.</p></span></div>
   </div>
   <div class="plexnote"><strong>New to Plex?</strong> Plex is software that organizes the music, movies and shows you own and streams them to your devices. To use Pokit you need a Plex account and a Plex Media Server with a music library. Pokit doesn't come with a music catalog.</div>
 
@@ -291,5 +336,16 @@
     <a href="#privacy">Privacy</a> &middot; <a href="#support">Support</a>
   </footer>
 </div>
+<script>
+  /* the feature tiles settle into place as they scroll into view (skipped with Reduce Motion; without scripting everything just shows) */
+  (function () {
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var root = document.documentElement; root.classList.add('reveal');
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.tile').forEach(function (t, i) { t.style.setProperty('--d', (i % 3) * 80 + 'ms'); io.observe(t); });
+  })();
+</script>
 </body>
 </html>
